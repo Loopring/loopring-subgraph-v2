@@ -1,15 +1,15 @@
 {
-  "name": "loopring-subgraph",
-  "version": "0.1.0",
+  "name": "loopring",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ <subgraph-name>",
-    "deploy-dev": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ <subgraph-name>",
-    "create-local": "graph create --node http://localhost:8020/ <subgraph-name>",
-    "remove-local": "graph remove --node http://localhost:8020/ <subgraph-name>",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 <subgraph-name>"
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ loopring/loopring",
+    "deploy-dev": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ loopring/loopring",
+    "create-local": "graph create --node http://localhost:8020/ loopring/loopring",
+    "remove-local": "graph remove --node http://localhost:8020/ loopring/loopring",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 loopring/loopring"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.22.0",
