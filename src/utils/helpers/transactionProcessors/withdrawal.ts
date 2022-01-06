@@ -193,7 +193,8 @@ export function processWithdrawal(
   }
 
   transaction.fromAccount = accountId;
-  transaction.feeToken = feeTokenCheck != null ? (feeTokenCheck as Token).id : null;
+  transaction.feeToken =
+    feeTokenCheck != null ? (feeTokenCheck as Token).id : null;
   transaction.accounts = accounts;
 
   if (isNFT(transaction.tokenID)) {
@@ -211,7 +212,7 @@ export function processWithdrawal(
       coercedTransaction.id
     );
     slot.balance = slot.balance.minus(coercedTransaction.amount);
-    let nftIDBefore = slot.nft
+    let nftIDBefore = slot.nft;
     if (coercedTransaction.type == 2 || slot.balance <= BIGINT_ZERO) {
       slot.nft = null;
     }
@@ -265,9 +266,9 @@ export function processWithdrawal(
           accountId,
           token.id
         );
-        accountTokenBalance.balance = accountTokenBalance.balance.minus(
-          transaction.amount.minus(transaction.fee)
-        );
+        accountTokenBalance.balance = accountTokenBalance.balance
+          .minus(transaction.amount)
+          .minus(transaction.fee);
 
         accountTokenBalance.save();
         tokenBalances.push(accountTokenBalance.id);

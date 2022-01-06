@@ -13,7 +13,10 @@ import {
   intToString,
   compoundIdToSortableDecimal
 } from "../index";
-import { TRANSACTION_SIGNATURE_VERIFICATION_TYPENAME, BIGINT_ONE } from "../../constants";
+import {
+  TRANSACTION_SIGNATURE_VERIFICATION_TYPENAME,
+  BIGINT_ONE
+} from "../../constants";
 
 // interface SignatureVerification {
 //   owner?: string;
@@ -55,10 +58,14 @@ export function processSignatureVerification(
   block: Block,
   proxy: Proxy
 ): void {
-  proxy.signatureVerificationCount = proxy.signatureVerificationCount.plus(BIGINT_ONE);
-  block.signatureVerificationCount = block.signatureVerificationCount.plus(BIGINT_ONE);
-  proxy.transactionCount = proxy.transactionCount + BIGINT_ONE
-  block.transactionCount = block.transactionCount + BIGINT_ONE
+  proxy.signatureVerificationCount = proxy.signatureVerificationCount.plus(
+    BIGINT_ONE
+  );
+  block.signatureVerificationCount = block.signatureVerificationCount.plus(
+    BIGINT_ONE
+  );
+  proxy.transactionCount = proxy.transactionCount + BIGINT_ONE;
+  block.transactionCount = block.transactionCount + BIGINT_ONE;
 
   let transaction = new SignatureVerification(id);
   transaction.typename = TRANSACTION_SIGNATURE_VERIFICATION_TYPENAME;

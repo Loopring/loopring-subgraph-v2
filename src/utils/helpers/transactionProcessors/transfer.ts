@@ -24,7 +24,7 @@ import {
   compoundIdToSortableDecimal,
   getAndUpdateAccountTokenBalanceDailyData,
   getAndUpdateAccountTokenBalanceWeeklyData,
-  getOrCreateAccountNFTSlot,
+  getOrCreateAccountNFTSlot
 } from "../index";
 import {
   TRANSACTION_TRANSFER_TYPENAME,
@@ -252,8 +252,8 @@ export function processTransfer(
       coercedTransaction.id
     );
 
-    slots.push(fromSlot.id)
-    slots.push(toSlot.id)
+    slots.push(fromSlot.id);
+    slots.push(toSlot.id);
 
     fromSlot.balance = fromSlot.balance.minus(coercedTransaction.amount);
     toSlot.balance = toSlot.balance.plus(coercedTransaction.amount);
@@ -263,7 +263,7 @@ export function processTransfer(
       fromSlot.nft = null;
     }
 
-    nfts.push(toSlot.nft as String)
+    nfts.push(toSlot.nft as String);
 
     toSlot.save();
     fromSlot.save();
@@ -295,9 +295,9 @@ export function processTransfer(
         fromAccountId,
         token.id
       );
-      fromAccountTokenBalance.balance = fromAccountTokenBalance.balance.minus(
-        transaction.amount.minus(transaction.fee)
-      );
+      fromAccountTokenBalance.balance = fromAccountTokenBalance.balance
+        .minus(transaction.amount)
+        .minus(transaction.fee);
 
       fromAccountTokenBalance.save();
       tokenBalances.push(fromAccountTokenBalance.id);

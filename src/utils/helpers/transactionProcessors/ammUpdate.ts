@@ -72,8 +72,8 @@ export function processAmmUpdate(
 ): void {
   proxy.ammUpdateCount = proxy.ammUpdateCount.plus(BIGINT_ONE);
   block.ammUpdateCount = block.ammUpdateCount.plus(BIGINT_ONE);
-  proxy.transactionCount = proxy.transactionCount + BIGINT_ONE
-  block.transactionCount = block.transactionCount + BIGINT_ONE
+  proxy.transactionCount = proxy.transactionCount + BIGINT_ONE;
+  block.transactionCount = block.transactionCount + BIGINT_ONE;
 
   let transaction = new AmmUpdate(id);
   transaction.typename = TRANSACTION_AMM_UPDATE_TYPENAME;

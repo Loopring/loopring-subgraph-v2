@@ -470,16 +470,16 @@ export function processSpotTrade(
         coercedTransaction.id
       );
 
-      slots.push(slotASeller.id)
-      slots.push(slotBSeller.id)
-      slots.push(slotABuyer.id)
-      slots.push(slotBBuyer.id)
+      slots.push(slotASeller.id);
+      slots.push(slotBSeller.id);
+      slots.push(slotABuyer.id);
+      slots.push(slotBBuyer.id);
 
       // A buy and B sell
       slotABuyer.balance = slotABuyer.balance.plus(coercedTransaction.fillSB);
       slotABuyer.nft = slotBSeller.nft;
 
-      nfts.push(slotABuyer.nft as String)
+      nfts.push(slotABuyer.nft as String);
 
       slotBSeller.balance = slotBSeller.balance.minus(
         coercedTransaction.fillSB
@@ -492,7 +492,7 @@ export function processSpotTrade(
       slotBBuyer.balance = slotBBuyer.balance.plus(coercedTransaction.fillSA);
       slotBBuyer.nft = slotASeller.nft;
 
-      nfts.push(slotBBuyer.nft as String)
+      nfts.push(slotBBuyer.nft as String);
 
       slotASeller.balance = slotASeller.balance.minus(
         coercedTransaction.fillSA
@@ -568,13 +568,13 @@ export function processSpotTrade(
         coercedTransaction.id
       );
 
-      slots.push(slotSeller.id)
-      slots.push(slotBuyer.id)
+      slots.push(slotSeller.id);
+      slots.push(slotBuyer.id);
 
       slotBuyer.balance = slotBuyer.balance.plus(amountNFT);
       slotBuyer.nft = slotSeller.nft;
 
-      nfts.push(slotBuyer.nft as String)
+      nfts.push(slotBuyer.nft as String);
 
       slotSeller.balance = slotSeller.balance.minus(amountNFT);
       if (slotSeller.balance <= BIGINT_ZERO) {

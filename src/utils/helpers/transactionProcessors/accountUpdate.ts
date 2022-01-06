@@ -102,8 +102,8 @@ export function processAccountUpdate(
 ): void {
   proxy.accountUpdateCount = proxy.accountUpdateCount.plus(BIGINT_ONE);
   block.accountUpdateCount = block.accountUpdateCount.plus(BIGINT_ONE);
-  proxy.transactionCount = proxy.transactionCount + BIGINT_ONE
-  block.transactionCount = block.transactionCount + BIGINT_ONE
+  proxy.transactionCount = proxy.transactionCount + BIGINT_ONE;
+  block.transactionCount = block.transactionCount + BIGINT_ONE;
 
   let transaction = new AccountUpdate(id);
   transaction.typename = TRANSACTION_ACCOUNT_UPDATE_TYPENAME;

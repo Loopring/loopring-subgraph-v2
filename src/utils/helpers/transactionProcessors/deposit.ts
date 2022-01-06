@@ -72,8 +72,8 @@ export function processDeposit(
 ): void {
   proxy.depositCount = proxy.depositCount.plus(BIGINT_ONE);
   block.depositCount = block.depositCount.plus(BIGINT_ONE);
-  proxy.transactionCount = proxy.transactionCount + BIGINT_ONE
-  block.transactionCount = block.transactionCount + BIGINT_ONE
+  proxy.transactionCount = proxy.transactionCount + BIGINT_ONE;
+  block.transactionCount = block.transactionCount + BIGINT_ONE;
 
   let transaction = new Deposit(id);
   transaction.typename = TRANSACTION_DEPOSIT_TYPENAME;
