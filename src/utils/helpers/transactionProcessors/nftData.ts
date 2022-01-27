@@ -9,7 +9,6 @@ import {
 import { BigInt, Address, Bytes } from "@graphprotocol/graph-ts";
 import { extractData, extractBigInt, extractInt } from "../data";
 import {
-  createIfNewAccount,
   getToken,
   intToString,
   getOrCreateAccountTokenBalance,

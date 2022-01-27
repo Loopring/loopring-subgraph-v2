@@ -1,35 +1,17 @@
-export {
-  processDeposit
-} from './deposit'
+export { processDeposit } from "./deposit";
 
-export {
-  processSpotTrade
-} from './spotTrade'
+export { processSpotTrade } from "./spotTrade";
 
-export {
-  processTransfer
-} from './transfer'
+export { processTransfer } from "./transfer";
 
-export {
-  processWithdrawal
-} from './withdrawal'
+export { processWithdrawal } from "./withdrawal";
 
-export {
-  processAccountUpdate
-} from './accountUpdate'
+export { processAccountUpdate } from "./accountUpdate";
 
-export {
-  processAmmUpdate
-} from './ammUpdate'
+export { processAmmUpdate } from "./ammUpdate";
 
-export {
-  processSignatureVerification
-} from './signatureVerification'
+export { processSignatureVerification } from "./signatureVerification";
 
-export {
-  processNFTMint
-} from './nftMint'
+export { processNFTMint } from "./nftMint";
 
-export {
-  processNFTData
-} from './nftData'
+export { processNFTData } from "./nftData";

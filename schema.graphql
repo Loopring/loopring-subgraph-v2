@@ -1,5 +1,5 @@
 type Proxy @entity {
-  "Proxy ID is always '0'. There's only"
+  "Proxy ID is always '0' since it's a singleton entity."
   id: ID!
 
   "Current implementation is represented by a link to the current Exchange entity"
@@ -67,6 +67,12 @@ type Proxy @entity {
 
   "Total amount of unique NFTs"
   nftCount: BigInt!
+
+  "Total amount of unique User entities"
+  userCount: BigInt!
+
+  "Total amount of unique Pool entities"
+  poolCount: BigInt!
 }
 
 type Exchange @entity {

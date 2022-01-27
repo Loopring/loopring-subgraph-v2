@@ -1,4 +1,5 @@
 import {
+  Proxy,
   Pool,
   User,
   AccountTokenBalance,
@@ -11,6 +12,7 @@ import { compoundId, intToString, compoundIdToSortableDecimal } from "./util";
 import {
   ZERO_ADDRESS,
   BIGINT_ZERO,
+  BIGINT_ONE,
   USER_ACCOUNT_THRESHOLD,
   SECONDS_PER_DAY,
   LAUNCH_DAY,
@@ -23,6 +25,7 @@ export function getOrCreateUser(
   id: String,
   transactionId: String,
   addressString: String,
+  proxy: Proxy,
   createIfNotFound: boolean = true
 ): User {
   let user = User.load(id);
@@ -37,6 +40,8 @@ export function getOrCreateUser(
     user.address = Address.fromString(addressString) as Bytes;
 
     user.save();
+
+    proxy.userCount = proxy.userCount + BIGINT_ONE;
   }
 
   return user as User;
@@ -46,6 +51,7 @@ export function getOrCreatePool(
   id: String,
   transactionId: String,
   addressString: String,
+  proxy: Proxy,
   createIfNotFound: boolean = true
 ): Pool {
   let pool = Pool.load(id);
@@ -60,6 +66,8 @@ export function getOrCreatePool(
     pool.address = Address.fromString(addressString) as Bytes;
 
     pool.save();
+
+    proxy.poolCount = proxy.poolCount + BIGINT_ONE;
   }
 
   return pool as Pool;
@@ -181,11 +189,22 @@ export function getProtocolAccount(transactionId: String): ProtocolAccount {
 export function createIfNewAccount(
   accountId: i32,
   transactionId: String,
-  addressString: String
+  addressString: String,
+  proxy: Proxy
 ): void {
   if (accountId > USER_ACCOUNT_THRESHOLD) {
-    getOrCreateUser(intToString(accountId), transactionId, addressString);
+    getOrCreateUser(
+      intToString(accountId),
+      transactionId,
+      addressString,
+      proxy
+    );
   } else {
-    getOrCreatePool(intToString(accountId), transactionId, addressString);
+    getOrCreatePool(
+      intToString(accountId),
+      transactionId,
+      addressString,
+      proxy
+    );
   }
 }

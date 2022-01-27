@@ -248,7 +248,8 @@ export function processNFTMint(
     createIfNewAccount(
       transaction.toAccountID,
       transaction.id,
-      transaction.to as String
+      transaction.to as String,
+      proxy
     );
   }
 
@@ -271,7 +272,8 @@ export function processNFTMint(
   let minter = User.load(intToString(transaction.minterAccountID)) as User;
 
   // Ideally the ID of the NFT should be the Poseidon hash of the NFT DATA, but we don't have support for Poseidon hashing
-  let nftID = minter.address.toHexString()
+  let nftID = minter.address
+    .toHexString()
     .concat("-")
     .concat(intToString(transaction.nftType))
     .concat("-")

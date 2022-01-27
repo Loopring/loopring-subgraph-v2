@@ -4,7 +4,7 @@ import { log } from "@graphprotocol/graph-ts";
 
 export function handleUpgraded(event: Upgraded): void {
   let proxy = getProxy();
-  let exchange = getOrCreateExchange(event.params.implementation.toHexString())
+  let exchange = getOrCreateExchange(event.params.implementation.toHexString());
 
   proxy.currentImplementation = exchange.id;
 

@@ -1,4 +1,8 @@
-import { NonFungibleToken, AccountNFTSlot, Proxy } from "../../../generated/schema";
+import {
+  NonFungibleToken,
+  AccountNFTSlot,
+  Proxy
+} from "../../../generated/schema";
 import { BigInt, Bytes } from "@graphprotocol/graph-ts";
 import { compoundId, intToString, compoundIdToSortableDecimal } from "./util";
 import { ZERO_ADDRESS, BIGINT_ZERO, BIGINT_ONE } from "../constants";
@@ -16,7 +20,7 @@ export function getOrCreateNFT(
     nft.mintedAt = compoundIdToSortableDecimal(transactionId);
     nft.mintedAtTransaction = transactionId;
 
-    proxy.nftCount = proxy.nftCount.plus(BIGINT_ONE)
+    proxy.nftCount = proxy.nftCount.plus(BIGINT_ONE);
   }
 
   return nft as NonFungibleToken;
@@ -28,7 +32,7 @@ export function getOrCreateAccountNFTSlot(
   transactionId: String,
   createIfNotFound: boolean = true
 ): AccountNFTSlot {
-  let id = compoundId(intToString(accountId), intToString(tokenId))
+  let id = compoundId(intToString(accountId), intToString(tokenId));
   let slot = AccountNFTSlot.load(id);
 
   if (slot == null && createIfNotFound) {
