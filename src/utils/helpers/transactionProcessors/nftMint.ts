@@ -431,10 +431,10 @@ function processNFTData(
         secondDataSegmentOffset,
         1
       );
-      offset += 1;
+      secondDataSegmentOffset += 1;
       transaction.tokenAddress =
         "0x" + extractData(secondDataSegment, secondDataSegmentOffset, 20);
-      offset += 20;
+      secondDataSegmentOffset += 20;
     }
   }
   return transaction as MintNFT;
