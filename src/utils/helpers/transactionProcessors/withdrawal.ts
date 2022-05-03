@@ -243,7 +243,9 @@ export function processWithdrawal(
       );
 
       slots.push(slot.id);
-      nfts.push(nftIDBefore as String);
+      if(nftIDBefore != null) {
+        nfts.push(nftIDBefore as String);
+      }
     }
 
     coercedTransaction.tokenBalances = tokenBalances;

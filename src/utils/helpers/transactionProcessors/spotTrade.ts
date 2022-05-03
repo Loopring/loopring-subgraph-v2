@@ -436,11 +436,11 @@ export function processSpotTrade(
     let tokenIDAB =
       transaction.tokenIDAB != 0
         ? transaction.tokenIDAB
-        : transaction.tokenIDAS;
+        : transaction.tokenIDBS;
     let tokenIDBB =
       transaction.tokenIDBB != 0
         ? transaction.tokenIDBB
-        : transaction.tokenIDBS;
+        : transaction.tokenIDAS;
 
     // Check whether it's a swap or a trade
     if (isNFT(tokenIDAS) && isNFT(tokenIDBS)) {
@@ -479,7 +479,9 @@ export function processSpotTrade(
       slotABuyer.balance = slotABuyer.balance.plus(coercedTransaction.fillSB);
       slotABuyer.nft = slotBSeller.nft;
 
-      nfts.push(slotABuyer.nft as String);
+      if (slotABuyer.nft != null) {
+        nfts.push(slotABuyer.nft as String);
+      }
 
       slotBSeller.balance = slotBSeller.balance.minus(
         coercedTransaction.fillSB
@@ -492,7 +494,9 @@ export function processSpotTrade(
       slotBBuyer.balance = slotBBuyer.balance.plus(coercedTransaction.fillSA);
       slotBBuyer.nft = slotASeller.nft;
 
-      nfts.push(slotBBuyer.nft as String);
+      if (slotBBuyer.nft != null) {
+        nfts.push(slotBBuyer.nft as String);
+      }
 
       slotASeller.balance = slotASeller.balance.minus(
         coercedTransaction.fillSA
@@ -574,7 +578,9 @@ export function processSpotTrade(
       slotBuyer.balance = slotBuyer.balance.plus(amountNFT);
       slotBuyer.nft = slotSeller.nft;
 
-      nfts.push(slotBuyer.nft as String);
+      if (slotBuyer.nft != null) {
+        nfts.push(slotBuyer.nft as String);
+      }
 
       slotSeller.balance = slotSeller.balance.minus(amountNFT);
       if (slotSeller.balance <= BIGINT_ZERO) {

@@ -34,8 +34,8 @@ dataSources:
         - Swap
         - SwapNFT
         - TradeNFT
-        - SignatureVerification
         - AccountUpdate
+        - SignatureVerification
       abis:
         - name: OwnedUpgradabilityProxy
           file: ./abis/OwnedUpgradabilityProxy.json
