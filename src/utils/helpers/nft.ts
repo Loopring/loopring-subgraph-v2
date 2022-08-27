@@ -43,6 +43,9 @@ export function getOrCreateAccountNFTSlot(
     slot.lastUpdatedAt = compoundIdToSortableDecimal(transactionId);
     slot.createdAtTransaction = transactionId;
     slot.lastUpdatedAtTransaction = transactionId;
+  } else if (slot != null) {
+    slot.lastUpdatedAt = compoundIdToSortableDecimal(transactionId);
+    slot.lastUpdatedAtTransaction = transactionId;
   }
 
   return slot as AccountNFTSlot;

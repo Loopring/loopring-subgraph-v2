@@ -42,6 +42,9 @@ export function getOrCreateUser(
     user.save();
 
     proxy.userCount = proxy.userCount + BIGINT_ONE;
+  } else if (user != null) {
+    user.lastUpdatedAt = compoundIdToSortableDecimal(transactionId);
+    user.lastUpdatedAtTransaction = transactionId;
   }
 
   return user as User;
@@ -68,6 +71,9 @@ export function getOrCreatePool(
     pool.save();
 
     proxy.poolCount = proxy.poolCount + BIGINT_ONE;
+  } else if (pool != null) {
+    pool.lastUpdatedAt = compoundIdToSortableDecimal(transactionId);
+    pool.lastUpdatedAtTransaction = transactionId;
   }
 
   return pool as Pool;
@@ -181,6 +187,9 @@ export function getProtocolAccount(transactionId: String): ProtocolAccount {
     account.lastUpdatedAtTransaction = transactionId;
 
     account.save();
+  } else {
+    account.lastUpdatedAt = compoundIdToSortableDecimal(transactionId);
+    account.lastUpdatedAtTransaction = transactionId;
   }
 
   return account as ProtocolAccount;

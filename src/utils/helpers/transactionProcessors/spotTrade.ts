@@ -402,6 +402,7 @@ export function processSpotTrade(
   // and they can't be created first during a SpotTrade transaction.
   let accountAID = intToString(transaction.accountIdA);
   let accountBID = intToString(transaction.accountIdB);
+  let isSelfTrade = accountAID == accountBID;
 
   let tokenBalances = new Array<String>();
   let accounts = new Array<String>();
@@ -475,34 +476,36 @@ export function processSpotTrade(
       slots.push(slotABuyer.id);
       slots.push(slotBBuyer.id);
 
-      // A buy and B sell
-      slotABuyer.balance = slotABuyer.balance.plus(coercedTransaction.fillSB);
-      slotABuyer.nft = slotBSeller.nft;
+      if (!isSelfTrade) {
+        // A buy and B sell
+        slotABuyer.balance = slotABuyer.balance.plus(coercedTransaction.fillSB);
+        slotABuyer.nft = slotBSeller.nft;
 
-      if (slotABuyer.nft != null) {
-        nfts.push(slotABuyer.nft as String);
-      }
+        if (slotABuyer.nft != null) {
+          nfts.push(slotABuyer.nft as String);
+        }
 
-      slotBSeller.balance = slotBSeller.balance.minus(
-        coercedTransaction.fillSB
-      );
-      if (slotBSeller.balance <= BIGINT_ZERO) {
-        slotBSeller.nft = null;
-      }
+        slotBSeller.balance = slotBSeller.balance.minus(
+          coercedTransaction.fillSB
+        );
+        if (slotBSeller.balance <= BIGINT_ZERO) {
+          slotBSeller.nft = null;
+        }
 
-      // B buy and A sell
-      slotBBuyer.balance = slotBBuyer.balance.plus(coercedTransaction.fillSA);
-      slotBBuyer.nft = slotASeller.nft;
+        // B buy and A sell
+        slotBBuyer.balance = slotBBuyer.balance.plus(coercedTransaction.fillSA);
+        slotBBuyer.nft = slotASeller.nft;
 
-      if (slotBBuyer.nft != null) {
-        nfts.push(slotBBuyer.nft as String);
-      }
+        if (slotBBuyer.nft != null) {
+          nfts.push(slotBBuyer.nft as String);
+        }
 
-      slotASeller.balance = slotASeller.balance.minus(
-        coercedTransaction.fillSA
-      );
-      if (slotASeller.balance <= BIGINT_ZERO) {
-        slotASeller.nft = null;
+        slotASeller.balance = slotASeller.balance.minus(
+          coercedTransaction.fillSA
+        );
+        if (slotASeller.balance <= BIGINT_ZERO) {
+          slotASeller.nft = null;
+        }
       }
 
       slotBBuyer.save();
@@ -575,16 +578,18 @@ export function processSpotTrade(
       slots.push(slotSeller.id);
       slots.push(slotBuyer.id);
 
-      slotBuyer.balance = slotBuyer.balance.plus(amountNFT);
-      slotBuyer.nft = slotSeller.nft;
+      if (!isSelfTrade) {
+        slotBuyer.balance = slotBuyer.balance.plus(amountNFT);
+        slotBuyer.nft = slotSeller.nft;
 
-      if (slotBuyer.nft != null) {
-        nfts.push(slotBuyer.nft as String);
-      }
+        if (slotBuyer.nft != null) {
+          nfts.push(slotBuyer.nft as String);
+        }
 
-      slotSeller.balance = slotSeller.balance.minus(amountNFT);
-      if (slotSeller.balance <= BIGINT_ZERO) {
-        slotSeller.nft = null;
+        slotSeller.balance = slotSeller.balance.minus(amountNFT);
+        if (slotSeller.balance <= BIGINT_ZERO) {
+          slotSeller.nft = null;
+        }
       }
 
       slotBuyer.save();
@@ -594,7 +599,6 @@ export function processSpotTrade(
       coercedTransaction.slotSeller = slotSeller.id;
 
       // ERC20 payment of the NFT trade
-      // TO-DO fees and token balance updates
       let token = getToken(intToString(tokenId)) as Token;
       coercedTransaction.token = token.id;
       coercedTransaction.realizedNFTPrice = amountToken;
@@ -615,9 +619,16 @@ export function processSpotTrade(
         intToString(sellerId),
         token.id
       );
-      accountTokenBalanceSeller.balance = accountTokenBalanceSeller.balance
-        .plus(amountToken)
-        .minus(coercedTransaction.feeSeller);
+
+      if (!isSelfTrade) {
+        accountTokenBalanceSeller.balance = accountTokenBalanceSeller.balance
+          .plus(amountToken)
+          .minus(coercedTransaction.feeSeller);
+      } else {
+        accountTokenBalanceSeller.balance = accountTokenBalanceSeller.balance.minus(
+          coercedTransaction.feeSeller
+        );
+      }
       accountTokenBalanceSeller.save();
       tokenBalances.push(accountTokenBalanceSeller.id);
 
@@ -625,9 +636,16 @@ export function processSpotTrade(
         intToString(buyerId),
         token.id
       );
-      accountTokenBalanceBuyer.balance = accountTokenBalanceBuyer.balance
-        .minus(amountToken)
-        .minus(coercedTransaction.feeBuyer);
+
+      if (!isSelfTrade) {
+        accountTokenBalanceBuyer.balance = accountTokenBalanceBuyer.balance
+          .minus(amountToken)
+          .minus(coercedTransaction.feeBuyer);
+      } else {
+        accountTokenBalanceBuyer.balance = accountTokenBalanceBuyer.balance.minus(
+          coercedTransaction.feeBuyer
+        );
+      }
       accountTokenBalanceBuyer.save();
       tokenBalances.push(accountTokenBalanceBuyer.id);
 
@@ -693,9 +711,11 @@ export function processSpotTrade(
       accountAID,
       tokenA.id
     );
-    accountTokenBalanceAA.balance = accountTokenBalanceAA.balance.minus(
-      transaction.fillSA
-    );
+    if (!isSelfTrade) {
+      accountTokenBalanceAA.balance = accountTokenBalanceAA.balance.minus(
+        transaction.fillSA
+      );
+    }
     accountTokenBalanceAA.save();
     tokenBalances.push(accountTokenBalanceAA.id);
 
@@ -703,9 +723,15 @@ export function processSpotTrade(
       accountAID,
       tokenB.id
     );
-    accountTokenBalanceAB.balance = accountTokenBalanceAB.balance
-      .plus(transaction.fillBA)
-      .minus(transaction.feeA);
+    if (!isSelfTrade) {
+      accountTokenBalanceAB.balance = accountTokenBalanceAB.balance
+        .plus(transaction.fillBA)
+        .minus(transaction.feeA);
+    } else {
+      accountTokenBalanceAB.balance = accountTokenBalanceAB.balance.minus(
+        transaction.feeA
+      );
+    }
     accountTokenBalanceAB.save();
     tokenBalances.push(accountTokenBalanceAB.id);
 
@@ -714,9 +740,11 @@ export function processSpotTrade(
       accountBID,
       tokenB.id
     );
-    accountTokenBalanceBB.balance = accountTokenBalanceBB.balance.minus(
-      transaction.fillSB
-    );
+    if (!isSelfTrade) {
+      accountTokenBalanceBB.balance = accountTokenBalanceBB.balance.minus(
+        transaction.fillSB
+      );
+    }
     accountTokenBalanceBB.save();
     tokenBalances.push(accountTokenBalanceBB.id);
 
@@ -724,9 +752,15 @@ export function processSpotTrade(
       accountBID,
       tokenA.id
     );
-    accountTokenBalanceBA.balance = accountTokenBalanceBA.balance
-      .plus(transaction.fillBB)
-      .minus(transaction.feeB);
+    if (!isSelfTrade) {
+      accountTokenBalanceBA.balance = accountTokenBalanceBA.balance
+        .plus(transaction.fillBB)
+        .minus(transaction.feeB);
+    } else {
+      accountTokenBalanceBA.balance = accountTokenBalanceBA.balance.minus(
+        transaction.feeB
+      );
+    }
     accountTokenBalanceBA.save();
     tokenBalances.push(accountTokenBalanceBA.id);
 
