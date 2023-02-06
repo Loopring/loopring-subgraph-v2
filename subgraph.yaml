@@ -1,5 +1,5 @@
 specVersion: 0.0.2
-description: Loopring Exchange V3 (Loopring 3.6.5) subgraph. Supports L2 Blocks and Transactions, as well as L2 accounts, balances and more. Currently work in progress.
+description: Loopring Exchange V3 (Loopring 3.6.5) subgraph. Supports L2 Blocks and Transactions, as well as L2 accounts, balances and more.
 schema:
   file: ./schema.graphql
 dataSources:
