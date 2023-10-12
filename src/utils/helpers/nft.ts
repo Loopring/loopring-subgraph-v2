@@ -7,25 +7,6 @@ import { BigInt, Bytes } from "@graphprotocol/graph-ts";
 import { compoundId, intToString, compoundIdToSortableDecimal } from "./util";
 import { ZERO_ADDRESS, BIGINT_ZERO, BIGINT_ONE } from "../constants";
 
-export function getOrCreateNFT(
-  id: String,
-  transactionId: String,
-  proxy: Proxy,
-  createIfNotFound: boolean = true
-): NonFungibleToken {
-  let nft = NonFungibleToken.load(id);
-
-  if (nft == null && createIfNotFound) {
-    nft = new NonFungibleToken(id);
-    nft.mintedAt = compoundIdToSortableDecimal(transactionId);
-    nft.mintedAtTransaction = transactionId;
-
-    proxy.nftCount = proxy.nftCount.plus(BIGINT_ONE);
-  }
-
-  return nft as NonFungibleToken;
-}
-
 export function getOrCreateAccountNFTSlot(
   accountId: i32,
   tokenId: i32,
