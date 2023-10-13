@@ -415,13 +415,13 @@ export function processSpotTrade(
   // Further extraction of packed data
   transaction.limitMaskA = transaction.orderDataA & stringBytesToBigInt("80");
   transaction.feeBipsA =
-    (transaction.feeBipsHiA << 6) |
+    transaction.feeBipsHiA.leftShift(6) |
     (transaction.orderDataA & stringBytesToBigInt("3F"));
   transaction.fillAmountBorSA = transaction.limitMaskA > BIGINT_ZERO;
 
   transaction.limitMaskB = transaction.orderDataB & stringBytesToBigInt("80");
   transaction.feeBipsB =
-    (transaction.feeBipsHiB << 6) |
+    transaction.feeBipsHiB.leftShift(6) |
     (transaction.orderDataB & stringBytesToBigInt("3F"));
   transaction.fillAmountBorSB = transaction.limitMaskB > BIGINT_ZERO;
 

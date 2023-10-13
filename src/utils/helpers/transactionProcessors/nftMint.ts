@@ -20,7 +20,6 @@ import {
   intToString,
   getOrCreateAccountTokenBalance,
   compoundIdToSortableDecimal,
-  getOrCreateNFT,
   getOrCreateAccountNFTSlot,
   getAndUpdateAccountTokenBalanceDailyData,
   getAndUpdateAccountTokenBalanceWeeklyData
@@ -282,7 +281,11 @@ export function processNFTMint(
     .concat(transaction.nftID)
     .concat("-")
     .concat(intToString(transaction.creatorFeeBips));
-  let nft = getOrCreateNFT(nftID, transaction.id, proxy);
+
+  let nft = new NonFungibleToken(nftID);
+
+  nft.mintedAt = compoundIdToSortableDecimal(transaction.id);
+  nft.mintedAtTransaction = transaction.id;
   nft.minter = intToString(transaction.minterAccountID);
   nft.nftType = transaction.nftType;
   nft.token = transaction.tokenAddress;
@@ -291,6 +294,7 @@ export function processNFTMint(
   nft.save();
 
   nfts.push(nft.id);
+  proxy.nftCount = proxy.nftCount.plus(BIGINT_ONE);
 
   let receiverAccountNFTSlot = getOrCreateAccountNFTSlot(
     transaction.toAccountID,

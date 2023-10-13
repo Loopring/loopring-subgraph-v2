@@ -10,7 +10,6 @@ import { Block, Proxy } from "../../generated/schema";
 import {
   getOrCreateToken,
   getProxy,
-  getOrCreateBlock,
   processBlockData,
   intToString
 } from "../utils/helpers";
@@ -59,9 +58,29 @@ function handleSubmitBlocks(
     proxy.blockCount = proxy.blockCount.plus(BIGINT_ONE);
 
     let blockData = blockArray[i];
-    let block = getOrCreateBlock(proxy.blockCount);
-
+    let block = new Block(proxy.blockCount.toString());
+    
+    // conditionally updated
+    block.transactionCount = BIGINT_ZERO;
+    block.depositCount = BIGINT_ZERO;
+    block.withdrawalCount = BIGINT_ZERO;
+    block.withdrawalNFTCount = BIGINT_ZERO;
+    block.transferCount = BIGINT_ZERO;
+    block.transferNFTCount = BIGINT_ZERO;
+    block.addCount = BIGINT_ZERO;
+    block.removeCount = BIGINT_ZERO;
+    block.orderbookTradeCount = BIGINT_ZERO;
+    block.swapCount = BIGINT_ZERO;
+    block.swapNFTCount = BIGINT_ZERO;
+    block.tradeNFTCount = BIGINT_ZERO;
+    block.accountUpdateCount = BIGINT_ZERO;
+    block.ammUpdateCount = BIGINT_ZERO;
+    block.signatureVerificationCount = BIGINT_ZERO;
+    block.nftMintCount = BIGINT_ZERO;
+    block.nftDataCount = BIGINT_ZERO;
+    
     // metadata
+    block.internalID = proxy.blockCount;
     block.txHash = call.transaction.hash.toHexString();
     block.gasLimit = call.transaction.gasLimit;
     block.gasPrice = call.transaction.gasPrice;

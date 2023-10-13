@@ -33,35 +33,6 @@ import {
   processNFTData
 } from "./transactionProcessors";
 
-export function getOrCreateBlock(internalID: BigInt): Block {
-  let id = internalID.toString();
-  let block = Block.load(id);
-
-  if (block == null) {
-    block = new Block(id);
-    block.internalID = internalID;
-    block.transactionCount = BIGINT_ZERO;
-    block.depositCount = BIGINT_ZERO;
-    block.withdrawalCount = BIGINT_ZERO;
-    block.withdrawalNFTCount = BIGINT_ZERO;
-    block.transferCount = BIGINT_ZERO;
-    block.transferNFTCount = BIGINT_ZERO;
-    block.addCount = BIGINT_ZERO;
-    block.removeCount = BIGINT_ZERO;
-    block.orderbookTradeCount = BIGINT_ZERO;
-    block.swapCount = BIGINT_ZERO;
-    block.swapNFTCount = BIGINT_ZERO;
-    block.tradeNFTCount = BIGINT_ZERO;
-    block.accountUpdateCount = BIGINT_ZERO;
-    block.ammUpdateCount = BIGINT_ZERO;
-    block.signatureVerificationCount = BIGINT_ZERO;
-    block.nftMintCount = BIGINT_ZERO;
-    block.nftDataCount = BIGINT_ZERO;
-  }
-
-  return block as Block;
-}
-
 export function processBlockData(block: Block, proxy: Proxy): Block {
   let data = block.data.slice(2); // Remove the 0x beginning of the hex string
   let offset = 0;

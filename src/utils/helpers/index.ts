@@ -1,6 +1,6 @@
-export { getOrCreateBlock, processBlockData } from "./block";
+export { processBlockData } from "./block";
 
-export { getOrCreateNFT, getOrCreateAccountNFTSlot } from "./nft";
+export { getOrCreateAccountNFTSlot } from "./nft";
 
 export {
   getOrCreateToken,
