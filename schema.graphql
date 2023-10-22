@@ -160,7 +160,7 @@ type Pair @entity {
   weeklyEntities: [PairWeeklyData!]! @derivedFrom(field: "pair")
 }
 
-type Block @entity(immutable: true) {
+type Block @entity {
   id: ID!
 
   "Same as ID but expressed as a BigInt so it can be used for sorting properly"
@@ -413,7 +413,7 @@ type AccountTokenBalance @entity {
     @derivedFrom(field: "accountTokenBalance")
 }
 
-type NonFungibleToken @entity(immutable: true) {
+type NonFungibleToken @entity {
   "ID is the Poseidon hash reported by L2"
   id: ID!
 
@@ -530,7 +530,7 @@ interface TransactionNFT {
   slots: [AccountNFTSlot!]!
 }
 
-type Deposit implements Transaction @entity(immutable: true) {
+type Deposit implements Transaction @entity {
   id: ID!
 
   "Explicit copy of __typename to make it usable when filtering"
@@ -564,7 +564,7 @@ type Deposit implements Transaction @entity(immutable: true) {
   accounts: [Account!]
 }
 
-type Withdrawal implements Transaction @entity(immutable: true) {
+type Withdrawal implements Transaction @entity {
   id: ID!
 
   "Explicit copy of __typename to make it usable when filtering"
@@ -614,7 +614,7 @@ type Withdrawal implements Transaction @entity(immutable: true) {
   accounts: [Account!]
 }
 
-type WithdrawalNFT implements Transaction & TransactionNFT @entity(immutable: true) {
+type WithdrawalNFT implements Transaction & TransactionNFT @entity {
   id: ID!
 
   "Explicit copy of __typename to make it usable when filtering"
@@ -668,7 +668,7 @@ type WithdrawalNFT implements Transaction & TransactionNFT @entity(immutable: tr
   slots: [AccountNFTSlot!]!
 }
 
-type Transfer implements Transaction @entity(immutable: true) {
+type Transfer implements Transaction @entity {
   id: ID!
 
   "Explicit copy of __typename to make it usable when filtering"
@@ -722,7 +722,7 @@ type Transfer implements Transaction @entity(immutable: true) {
   accounts: [Account!]
 }
 
-type TransferNFT implements Transaction & TransactionNFT @entity(immutable: true) {
+type TransferNFT implements Transaction & TransactionNFT @entity {
   id: ID!
 
   "Explicit copy of __typename to make it usable when filtering"
@@ -783,7 +783,7 @@ type TransferNFT implements Transaction & TransactionNFT @entity(immutable: true
   slots: [AccountNFTSlot!]!
 }
 
-type Add implements Transaction @entity(immutable: true) {
+type Add implements Transaction @entity {
   id: ID!
 
   "Explicit copy of __typename to make it usable when filtering"
@@ -837,7 +837,7 @@ type Add implements Transaction @entity(immutable: true) {
   accounts: [Account!]
 }
 
-type Remove implements Transaction @entity(immutable: true) {
+type Remove implements Transaction @entity {
   id: ID!
 
   "Explicit copy of __typename to make it usable when filtering"
@@ -891,7 +891,7 @@ type Remove implements Transaction @entity(immutable: true) {
   accounts: [Account!]
 }
 
-type OrderbookTrade implements Transaction @entity(immutable: true) {
+type OrderbookTrade implements Transaction @entity {
   id: ID!
 
   "Explicit copy of __typename to make it usable when filtering"
@@ -997,7 +997,7 @@ type OrderbookTrade implements Transaction @entity(immutable: true) {
   accounts: [Account!]
 }
 
-type Swap implements Transaction @entity(immutable: true) {
+type Swap implements Transaction @entity {
   id: ID!
 
   "Explicit copy of __typename to make it usable when filtering"
@@ -1103,7 +1103,7 @@ type Swap implements Transaction @entity(immutable: true) {
   accounts: [Account!]
 }
 
-type TradeNFT implements Transaction & TransactionNFT @entity(immutable: true) {
+type TradeNFT implements Transaction & TransactionNFT @entity {
   id: ID!
 
   "Explicit copy of __typename to make it usable when filtering"
@@ -1210,7 +1210,7 @@ type TradeNFT implements Transaction & TransactionNFT @entity(immutable: true) {
   slots: [AccountNFTSlot!]!
 }
 
-type SwapNFT implements Transaction & TransactionNFT @entity(immutable: true) {
+type SwapNFT implements Transaction & TransactionNFT @entity {
   id: ID!
 
   "Explicit copy of __typename to make it usable when filtering"
@@ -1306,7 +1306,7 @@ type SwapNFT implements Transaction & TransactionNFT @entity(immutable: true) {
   slots: [AccountNFTSlot!]!
 }
 
-type AccountUpdate implements Transaction @entity(immutable: true) {
+type AccountUpdate implements Transaction @entity {
   id: ID!
 
   "Explicit copy of __typename to make it usable when filtering"
@@ -1346,7 +1346,7 @@ type AccountUpdate implements Transaction @entity(immutable: true) {
   accounts: [Account!]
 }
 
-type AmmUpdate implements Transaction @entity(immutable: true) {
+type AmmUpdate implements Transaction @entity {
   id: ID!
 
   "Explicit copy of __typename to make it usable when filtering"
@@ -1378,7 +1378,7 @@ type AmmUpdate implements Transaction @entity(immutable: true) {
   accounts: [Account!]
 }
 
-type SignatureVerification implements Transaction @entity(immutable: true) {
+type SignatureVerification implements Transaction @entity {
   id: ID!
 
   "Explicit copy of __typename to make it usable when filtering"
@@ -1407,7 +1407,7 @@ type SignatureVerification implements Transaction @entity(immutable: true) {
   accounts: [Account!]
 }
 
-type MintNFT implements Transaction & TransactionNFT @entity(immutable: true) {
+type MintNFT implements Transaction & TransactionNFT @entity {
   id: ID!
 
   "Explicit copy of __typename to make it usable when filtering"
@@ -1458,7 +1458,7 @@ type MintNFT implements Transaction & TransactionNFT @entity(immutable: true) {
   slots: [AccountNFTSlot!]!
 }
 
-type DataNFT implements Transaction & TransactionNFT @entity(immutable: true) {
+type DataNFT implements Transaction & TransactionNFT @entity {
   id: ID!
 
   "Explicit copy of __typename to make it usable when filtering"
